@@ -1,0 +1,48 @@
+// ============================================
+// CSS Custom Properties for Theme Switching
+// ============================================
+
+:root,
+html.light {
+  --bg-page: #{$light-bg};
+  --bg-overlay: #{$light-bg-overlay};
+  --bg-sidebar: #{$light-sidebar-bg};
+  --bg-sidebar-hover: rgba(255, 255, 255, 0.08);
+  --bg-sidebar-active: rgba(64, 158, 255, 0.15);
+  --text-sidebar: #{$light-sidebar-text};
+  --text-sidebar-active: #{$light-sidebar-active};
+  --bg-header: #{$light-header-bg};
+  --text-primary: #{$light-text-primary};
+  --text-regular: #{$light-text-regular};
+  --text-secondary: #{$light-text-secondary};
+  --border-base: #{$light-border};
+  --border-light: #{$light-border-light};
+  --bg-card: #{$light-card-bg};
+  --shadow-base: #{$light-shadow};
+  --bg-tag: #f0f2f5;
+  --bg-tag-active: #409eff;
+  --text-tag: #606266;
+  --text-tag-active: #ffffff;
+}
+
+html.dark {
+  --bg-page: #{$dark-bg};
+  --bg-overlay: #{$dark-bg-overlay};
+  --bg-sidebar: #{$dark-sidebar-bg};
+  --bg-sidebar-hover: rgba(255, 255, 255, 0.05);
+  --bg-sidebar-active: rgba(64, 158, 255, 0.2);
+  --text-sidebar: #{$dark-sidebar-text};
+  --text-sidebar-active: #{$dark-sidebar-active};
+  --bg-header: #{$dark-header-bg};
+  --text-primary: #{$dark-text-primary};
+  --text-regular: #{$dark-text-regular};
+  --text-secondary: #{$dark-text-secondary};
+  --border-base: #{$dark-border};
+  --border-light: #{$dark-border-light};
+  --bg-card: #{$dark-card-bg};
+  --shadow-base: #{$dark-shadow};
+  --bg-tag: #2b2b2b;
+  --bg-tag-active: #409eff;
+  --text-tag: #a3a6ad;
+  --text-tag-active: #ffffff;
+}
