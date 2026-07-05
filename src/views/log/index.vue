@@ -109,7 +109,7 @@
               link
               type="primary"
               size="small"
-              @click="handleDetail(row)"
+              @click="handleDetail(row as AuditLog)"
               >详情</el-button
             >
           </template>

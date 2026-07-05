@@ -14,7 +14,7 @@ export default defineConfig({
       dts: "src/auto-imports.d.ts",
     }),
     Components({
-      resolvers: [ElementPlusResolver({ importStyle: "sass" })],
+      resolvers: [ElementPlusResolver({ importStyle: "css" })],
       dts: "src/components.d.ts",
     }),
   ],
@@ -34,7 +34,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/styles/variables.scss" as *; @use "@/styles/mixins.scss" as *;`,
+        additionalData: `@import "@/styles/variables.scss"; @import "@/styles/mixins.scss";`,
       },
     },
   },

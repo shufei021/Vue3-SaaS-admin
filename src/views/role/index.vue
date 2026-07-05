@@ -42,14 +42,14 @@
                   link
                   type="primary"
                   size="small"
-                  @click="handleEdit(row)"
+                  @click="handleEdit(row as RoleInfo)"
                   >编辑</el-button
                 >
                 <el-button
                   link
                   type="danger"
                   size="small"
-                  @click="handleDelete(row)"
+                  @click="handleDelete(row as RoleInfo)"
                   >删除</el-button
                 >
               </template>
