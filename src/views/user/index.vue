@@ -77,12 +77,12 @@
 
       <!-- Table -->
       <el-table
-        :data="tableData"
         v-loading="loading"
-        @selection-change="handleSelectionChange"
+        :data="tableData"
         stripe
         border
         style="width: 100%"
+        @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="45" />
         <el-table-column prop="id" label="ID" width="60" />
@@ -110,7 +110,11 @@
         <el-table-column prop="createTime" label="创建时间" width="170" />
         <el-table-column label="操作" width="160" fixed="right">
           <template #default="{ row }">
-            <el-button link type="primary" size="small" @click="handleEdit(row as UserInfo)"
+            <el-button
+              link
+              type="primary"
+              size="small"
+              @click="handleEdit(row as UserInfo)"
               >编辑</el-button
             >
             <el-button
@@ -193,7 +197,7 @@
       </el-form>
       <template #footer>
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="handleSubmit" :loading="submitLoading"
+        <el-button type="primary" :loading="submitLoading" @click="handleSubmit"
           >确定</el-button
         >
       </template>

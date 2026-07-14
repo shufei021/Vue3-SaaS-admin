@@ -99,7 +99,7 @@ function handleRefresh() {
   align-items: center;
   padding: 0 12px;
   gap: 8px;
-  :deep(.el-scrollbar__wrap){
+  :deep(.el-scrollbar__wrap) {
     display: flex;
     align-items: center;
   }

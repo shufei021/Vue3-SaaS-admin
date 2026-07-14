@@ -19,29 +19,29 @@
         active-text-color="var(--text-sidebar-active)"
         router
       >
-        <template v-for="route in menuRoutes" :key="route.path">
+        <template v-for="item in menuRoutes" :key="item.path">
           <!-- Single menu item -->
           <el-menu-item
-            v-if="!route.children || route.children.length === 1"
-            :index="getMenuIndex(route)"
+            v-if="!item.children || item.children.length === 1"
+            :index="getMenuIndex(item)"
           >
-            <el-icon v-if="getMenuIcon(route)">
-              <component :is="getMenuIcon(route)" />
+            <el-icon v-if="getMenuIcon(item)">
+              <component :is="getMenuIcon(item)" />
             </el-icon>
-            <template #title>{{ getMenuTitle(route) }}</template>
+            <template #title>{{ getMenuTitle(item) }}</template>
           </el-menu-item>
           <!-- Submenu -->
-          <el-sub-menu v-else :index="route.path">
+          <el-sub-menu v-else :index="item.path">
             <template #title>
-              <el-icon v-if="route.meta?.icon">
-                <component :is="route.meta.icon" />
+              <el-icon v-if="item.meta?.icon">
+                <component :is="item.meta.icon" />
               </el-icon>
-              <span>{{ route.meta?.title }}</span>
+              <span>{{ item.meta?.title }}</span>
             </template>
             <el-menu-item
-              v-for="child in route.children"
+              v-for="child in item.children"
               :key="child.path"
-              :index="resolveMenuPath(route.path, child.path)"
+              :index="resolveMenuPath(item.path, child.path)"
             >
               {{ child.meta?.title }}
             </el-menu-item>
@@ -62,18 +62,18 @@ const route = useRoute();
 const appStore = useAppStore();
 
 const menuRoutes = computed(() => {
-  return router.options.routes.find((route) => route.path === "/")?.children || [];
+  return router.options.routes.find((r) => r.path === "/")?.children || [];
 });
 
 const activeMenu = computed(() => {
   return route.path;
 });
 
-function getMenuIndex(route: any): string {
-  if (route.children && route.children.length === 1) {
-    return resolveMenuPath(route.path, route.children[0].path);
+function getMenuIndex(item: any): string {
+  if (item.children && item.children.length === 1) {
+    return resolveMenuPath(item.path, item.children[0].path);
   }
-  return resolveMenuPath(route.path);
+  return resolveMenuPath(item.path);
 }
 
 function resolveMenuPath(parentPath: string, childPath = ""): string {
@@ -81,18 +81,18 @@ function resolveMenuPath(parentPath: string, childPath = ""): string {
   return fullPath.startsWith("/") ? fullPath : `/${fullPath}`;
 }
 
-function getMenuIcon(route: any): string {
-  if (route.children && route.children.length === 1) {
-    return route.meta?.icon || "";
+function getMenuIcon(item: any): string {
+  if (item.children && item.children.length === 1) {
+    return item.meta?.icon || "";
   }
-  return route.meta?.icon || "";
+  return item.meta?.icon || "";
 }
 
-function getMenuTitle(route: any): string {
-  if (route.children && route.children.length === 1) {
-    return route.children[0].meta?.title || route.meta?.title || "";
+function getMenuTitle(item: any): string {
+  if (item.children && item.children.length === 1) {
+    return item.children[0].meta?.title || item.meta?.title || "";
   }
-  return route.meta?.title || "";
+  return item.meta?.title || "";
 }
 </script>
 

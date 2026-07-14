@@ -11,12 +11,12 @@
             </el-button>
           </div>
           <el-table
-            :data="roles"
             v-loading="loading"
+            :data="roles"
             highlight-current-row
-            @current-change="handleSelectRole"
             stripe
             border
+            @current-change="handleSelectRole"
           >
             <el-table-column prop="name" label="角色名称" width="120" />
             <el-table-column prop="code" label="角色编码" width="130" />
@@ -60,7 +60,7 @@
 
       <!-- Permission Config -->
       <el-col :xs="24" :md="14">
-        <div class="card-base" v-if="selectedRole">
+        <div v-if="selectedRole" class="card-base">
           <div class="table-toolbar">
             <span class="section-title"
               >权限配置 - {{ selectedRole.name }}</span
@@ -106,7 +106,7 @@
             </el-tab-pane>
           </el-tabs>
         </div>
-        <div class="card-base empty-placeholder" v-else>
+        <div v-else class="card-base empty-placeholder">
           <el-empty description="请选择左侧角色查看权限配置" />
         </div>
       </el-col>
@@ -152,7 +152,7 @@
       </el-form>
       <template #footer>
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="handleSubmit" :loading="submitLoading"
+        <el-button type="primary" :loading="submitLoading" @click="handleSubmit"
           >确定</el-button
         >
       </template>

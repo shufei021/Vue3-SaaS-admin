@@ -38,11 +38,11 @@
     <!-- Tenant Cards -->
     <el-row :gutter="16">
       <el-col
+        v-for="tenant in tenants"
+        :key="tenant.id"
         :xs="24"
         :sm="12"
         :lg="8"
-        v-for="tenant in tenants"
-        :key="tenant.id"
       >
         <div class="card-base tenant-card">
           <div class="tenant-header">
@@ -134,7 +134,7 @@
     </el-row>
 
     <!-- Pagination -->
-    <div class="pagination-wrapper" v-if="total > query.pageSize">
+    <div v-if="total > query.pageSize" class="pagination-wrapper">
       <el-pagination
         v-model:current-page="query.page"
         v-model:page-size="query.pageSize"

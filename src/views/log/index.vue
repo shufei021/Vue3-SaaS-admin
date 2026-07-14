@@ -60,8 +60,8 @@
     <!-- Table -->
     <div class="card-base">
       <el-table
-        :data="tableData"
         v-loading="loading"
+        :data="tableData"
         stripe
         border
         style="width: 100%"

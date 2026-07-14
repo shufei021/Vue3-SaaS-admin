@@ -3,11 +3,11 @@
     <!-- Stat Cards -->
     <el-row :gutter="16" class="stat-row">
       <el-col
+        v-for="(stat, idx) in statCards"
+        :key="idx"
         :xs="12"
         :sm="12"
         :md="6"
-        v-for="(stat, idx) in statCards"
-        :key="idx"
       >
         <div class="stat-card">
           <div class="stat-icon" :style="{ background: stat.color }">
