@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
+import { h } from "vue";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { useTagStore } from "@/store";
@@ -8,7 +9,27 @@ NProgress.configure({ showSpinner: false });
 
 const Layout = () => import("@/components/layout/AppLayout.vue");
 
+const Redirect = {
+  beforeRouteEnter(to: any, _from: any, next: any) {
+    next((vm: any) => {
+      const pathMatch = to.params.pathMatch;
+      const target = `/${Array.isArray(pathMatch) ? pathMatch.join("/") : pathMatch || ""}`;
+      vm.$router.replace({
+        path: target,
+        query: to.query,
+        hash: to.hash,
+      });
+    });
+  },
+  render: () => h("div"),
+};
+
 const routes: RouteRecordRaw[] = [
+  {
+    path: "/redirect/:pathMatch(.*)*",
+    name: "Redirect",
+    component: Redirect,
+  },
   {
     path: "/",
     component: Layout,

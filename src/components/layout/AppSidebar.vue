@@ -41,7 +41,7 @@
             <el-menu-item
               v-for="child in route.children"
               :key="child.path"
-              :index="`${route.path}/${child.path}`"
+              :index="resolveMenuPath(route.path, child.path)"
             >
               {{ child.meta?.title }}
             </el-menu-item>
@@ -62,7 +62,7 @@ const route = useRoute();
 const appStore = useAppStore();
 
 const menuRoutes = computed(() => {
-  return router.options.routes[0]?.children || [];
+  return router.options.routes.find((route) => route.path === "/")?.children || [];
 });
 
 const activeMenu = computed(() => {
@@ -71,9 +71,14 @@ const activeMenu = computed(() => {
 
 function getMenuIndex(route: any): string {
   if (route.children && route.children.length === 1) {
-    return `${route.path}/${route.children[0].path}`;
+    return resolveMenuPath(route.path, route.children[0].path);
   }
-  return route.path;
+  return resolveMenuPath(route.path);
+}
+
+function resolveMenuPath(parentPath: string, childPath = ""): string {
+  const fullPath = childPath ? `${parentPath}/${childPath}` : parentPath;
+  return fullPath.startsWith("/") ? fullPath : `/${fullPath}`;
 }
 
 function getMenuIcon(route: any): string {

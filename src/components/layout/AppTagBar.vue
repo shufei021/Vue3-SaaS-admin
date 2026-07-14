@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useTagStore } from "@/store";
 import type { TagItem } from "@/types";
 import {
@@ -53,6 +53,7 @@ import {
 } from "@element-plus/icons-vue";
 
 const router = useRouter();
+const route = useRoute();
 const tagStore = useTagStore();
 
 function handleClickTag(tag: TagItem) {
@@ -79,11 +80,11 @@ function handleCloseAll() {
 }
 
 function handleRefresh() {
-  // Simple refresh via router
-  const current = tagStore.tags.find((t) => t.name === tagStore.activeTag);
-  if (current) {
-    router.replace({ path: "/redirect" + current.path });
-  }
+  router.replace({
+    path: `/redirect${route.path}`,
+    query: route.query,
+    hash: route.hash,
+  });
 }
 
 // Context menu handler reserved for future use
@@ -98,6 +99,10 @@ function handleRefresh() {
   align-items: center;
   padding: 0 12px;
   gap: 8px;
+  :deep(.el-scrollbar__wrap){
+    display: flex;
+    align-items: center;
+  }
 }
 
 .tag-scroll {
