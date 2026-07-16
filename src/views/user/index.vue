@@ -4,38 +4,17 @@
     <div class="filter-bar">
       <el-form :inline="true" :model="query" class="filter-form">
         <el-form-item label="关键词">
-          <el-input
-            v-model="query.keyword"
-            placeholder="用户名/昵称/邮箱"
-            clearable
-            style="width: 200px"
-            @keyup.enter="handleSearch"
-          />
+          <el-input v-model="query.keyword" placeholder="用户名/昵称/邮箱" clearable style="width: 200px" @keyup.enter="handleSearch" />
         </el-form-item>
         <el-form-item label="状态">
-          <el-select
-            v-model="query.status"
-            placeholder="全部"
-            clearable
-            style="width: 120px"
-          >
+          <el-select v-model="query.status" placeholder="全部" clearable style="width: 120px">
             <el-option label="启用" :value="1" />
             <el-option label="禁用" :value="0" />
           </el-select>
         </el-form-item>
         <el-form-item label="角色">
-          <el-select
-            v-model="query.roleId"
-            placeholder="全部"
-            clearable
-            style="width: 150px"
-          >
-            <el-option
-              v-for="r in roles"
-              :key="r.id"
-              :label="r.name"
-              :value="r.id"
-            />
+          <el-select v-model="query.roleId" placeholder="全部" clearable style="width: 150px">
+            <el-option v-for="r in roles" :key="r.id" :label="r.name" :value="r.id" />
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -76,14 +55,7 @@
       </div>
 
       <!-- Table -->
-      <el-table
-        v-loading="loading"
-        :data="tableData"
-        stripe
-        border
-        style="width: 100%"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table v-loading="loading" :data="tableData" stripe border style="width: 100%" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="45" />
         <el-table-column prop="id" label="ID" width="60" />
         <el-table-column prop="username" label="用户名" width="120" />
@@ -98,32 +70,14 @@
         <el-table-column prop="tenantName" label="所属租户" width="110" />
         <el-table-column prop="status" label="状态" width="80" align="center">
           <template #default="{ row }">
-            <el-switch
-              v-model="row.status"
-              :active-value="1"
-              :inactive-value="0"
-              size="small"
-              @change="handleStatusChange(row as UserInfo)"
-            />
+            <el-switch v-model="row.status" :active-value="1" :inactive-value="0" size="small" @change="handleStatusChange(row as UserInfo)" />
           </template>
         </el-table-column>
         <el-table-column prop="createTime" label="创建时间" width="170" />
         <el-table-column label="操作" width="160" fixed="right">
           <template #default="{ row }">
-            <el-button
-              link
-              type="primary"
-              size="small"
-              @click="handleEdit(row as UserInfo)"
-              >编辑</el-button
-            >
-            <el-button
-              link
-              type="danger"
-              size="small"
-              @click="handleDelete(row as UserInfo)"
-              >删除</el-button
-            >
+            <el-button link type="primary" size="small" @click="handleEdit(row as UserInfo)">编辑</el-button>
+            <el-button link type="danger" size="small" @click="handleDelete(row as UserInfo)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -143,19 +97,10 @@
     </div>
 
     <!-- Dialog -->
-    <el-dialog
-      v-model="dialogVisible"
-      :title="isEdit ? '编辑用户' : '新增用户'"
-      width="520px"
-      destroy-on-close
-    >
+    <el-dialog v-model="dialogVisible" :title="isEdit ? '编辑用户' : '新增用户'" width="520px" destroy-on-close>
       <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="用户名" prop="username">
-          <el-input
-            v-model="form.username"
-            :disabled="isEdit"
-            placeholder="请输入用户名"
-          />
+          <el-input v-model="form.username" :disabled="isEdit" placeholder="请输入用户名" />
         </el-form-item>
         <el-form-item label="昵称" prop="nickname">
           <el-input v-model="form.nickname" placeholder="请输入昵称" />
@@ -167,17 +112,8 @@
           <el-input v-model="form.phone" placeholder="请输入手机号" />
         </el-form-item>
         <el-form-item label="角色" prop="roleId">
-          <el-select
-            v-model="form.roleId"
-            placeholder="请选择角色"
-            style="width: 100%"
-          >
-            <el-option
-              v-for="r in roles"
-              :key="r.id"
-              :label="r.name"
-              :value="r.id"
-            />
+          <el-select v-model="form.roleId" placeholder="请选择角色" style="width: 100%">
+            <el-option v-for="r in roles" :key="r.id" :label="r.name" :value="r.id" />
           </el-select>
         </el-form-item>
         <el-form-item label="状态">
@@ -187,19 +123,12 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item v-if="!isEdit" label="密码" prop="password">
-          <el-input
-            v-model="form.password"
-            type="password"
-            show-password
-            placeholder="请输入密码"
-          />
+          <el-input v-model="form.password" type="password" show-password placeholder="请输入密码" />
         </el-form-item>
       </el-form>
       <template #footer>
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" :loading="submitLoading" @click="handleSubmit"
-          >确定</el-button
-        >
+        <el-button type="primary" :loading="submitLoading" @click="handleSubmit">确定</el-button>
       </template>
     </el-dialog>
   </div>
@@ -209,21 +138,8 @@
 import { ref, reactive, onMounted } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import type { FormInstance, FormRules } from "element-plus";
-import {
-  Search,
-  Refresh,
-  Plus,
-  Delete,
-  Download,
-  Upload,
-} from "@element-plus/icons-vue";
-import {
-  getUserList,
-  createUser,
-  updateUser,
-  deleteUser,
-  getRoleList,
-} from "@/api";
+import { Search, Refresh, Plus, Delete, Download, Upload } from "@element-plus/icons-vue";
+import { getUserList, createUser, updateUser, deleteUser, getRoleList } from "@/api";
 import type { UserInfo, UserForm, RoleInfo } from "@/types";
 
 const loading = ref(false);
@@ -353,11 +269,9 @@ function handleDelete(row: UserInfo) {
 }
 
 function handleBatchDelete() {
-  ElMessageBox.confirm(
-    `确定删除选中的 ${selectedIds.value.length} 个用户吗？`,
-    "提示",
-    { type: "warning" },
-  )
+  ElMessageBox.confirm(`确定删除选中的 ${selectedIds.value.length} 个用户吗？`, "提示", {
+    type: "warning",
+  })
     .then(async () => {
       await deleteUser(selectedIds.value);
       ElMessage.success("批量删除成功");
@@ -367,9 +281,7 @@ function handleBatchDelete() {
 }
 
 function handleStatusChange(row: UserInfo) {
-  ElMessage.success(
-    `用户「${row.nickname}」已${row.status === 1 ? "启用" : "禁用"}`,
-  );
+  ElMessage.success(`用户「${row.nickname}」已${row.status === 1 ? "启用" : "禁用"}`);
 }
 
 function handleExport() {

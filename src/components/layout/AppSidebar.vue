@@ -5,9 +5,7 @@
         <rect width="32" height="32" rx="6" fill="#409EFF" />
         <path d="M8 10h16v2H8zm0 5h12v2H8zm0 5h14v2H8z" fill="#fff" />
       </svg>
-      <span v-show="!appStore.sidebarCollapsed" class="logo-text"
-        >SaaS Admin</span
-      >
+      <span v-show="!appStore.sidebarCollapsed" class="logo-text">SaaS Admin</span>
     </div>
     <el-scrollbar>
       <el-menu
@@ -21,10 +19,7 @@
       >
         <template v-for="item in menuRoutes" :key="item.path">
           <!-- Single menu item -->
-          <el-menu-item
-            v-if="!item.children || item.children.length === 1"
-            :index="getMenuIndex(item)"
-          >
+          <el-menu-item v-if="!item.children || item.children.length === 1" :index="getMenuIndex(item)">
             <el-icon v-if="getMenuIcon(item)">
               <component :is="getMenuIcon(item)" />
             </el-icon>
@@ -38,11 +33,7 @@
               </el-icon>
               <span>{{ item.meta?.title }}</span>
             </template>
-            <el-menu-item
-              v-for="child in item.children"
-              :key="child.path"
-              :index="resolveMenuPath(item.path, child.path)"
-            >
+            <el-menu-item v-for="child in item.children" :key="child.path" :index="resolveMenuPath(item.path, child.path)">
               {{ child.meta?.title }}
             </el-menu-item>
           </el-sub-menu>

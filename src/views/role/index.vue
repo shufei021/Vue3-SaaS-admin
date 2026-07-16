@@ -10,48 +10,21 @@
               <el-icon><Plus /></el-icon>新增角色
             </el-button>
           </div>
-          <el-table
-            v-loading="loading"
-            :data="roles"
-            highlight-current-row
-            stripe
-            border
-            @current-change="handleSelectRole"
-          >
+          <el-table v-loading="loading" :data="roles" highlight-current-row stripe border @current-change="handleSelectRole">
             <el-table-column prop="name" label="角色名称" width="120" />
             <el-table-column prop="code" label="角色编码" width="130" />
             <el-table-column prop="description" label="描述" min-width="120" />
-            <el-table-column
-              prop="status"
-              label="状态"
-              width="70"
-              align="center"
-            >
+            <el-table-column prop="status" label="状态" width="70" align="center">
               <template #default="{ row }">
-                <el-tag
-                  :type="row.status === 1 ? 'success' : 'danger'"
-                  size="small"
-                >
+                <el-tag :type="row.status === 1 ? 'success' : 'danger'" size="small">
                   {{ row.status === 1 ? "启用" : "禁用" }}
                 </el-tag>
               </template>
             </el-table-column>
             <el-table-column label="操作" width="120" fixed="right">
               <template #default="{ row }">
-                <el-button
-                  link
-                  type="primary"
-                  size="small"
-                  @click="handleEdit(row as RoleInfo)"
-                  >编辑</el-button
-                >
-                <el-button
-                  link
-                  type="danger"
-                  size="small"
-                  @click="handleDelete(row as RoleInfo)"
-                  >删除</el-button
-                >
+                <el-button link type="primary" size="small" @click="handleEdit(row as RoleInfo)">编辑</el-button>
+                <el-button link type="danger" size="small" @click="handleDelete(row as RoleInfo)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -62,45 +35,25 @@
       <el-col :xs="24" :md="14">
         <div v-if="selectedRole" class="card-base">
           <div class="table-toolbar">
-            <span class="section-title"
-              >权限配置 - {{ selectedRole.name }}</span
-            >
-            <el-button type="primary" size="small" @click="handleSavePermission"
-              >保存权限</el-button
-            >
+            <span class="section-title">权限配置 - {{ selectedRole.name }}</span>
+            <el-button type="primary" size="small" @click="handleSavePermission">保存权限</el-button>
           </div>
 
           <el-tabs v-model="permTab">
             <el-tab-pane label="菜单权限" name="menu">
-              <el-tree
-                ref="treeRef"
-                :data="menuTree"
-                show-checkbox
-                node-key="id"
-                :default-checked-keys="selectedRole.menuIds"
-                :props="{ label: 'name', children: 'children' }"
-                default-expand-all
-              />
+              <el-tree ref="treeRef" :data="menuTree" show-checkbox node-key="id" :default-checked-keys="selectedRole.menuIds" :props="{ label: 'name', children: 'children' }" default-expand-all />
             </el-tab-pane>
             <el-tab-pane label="数据权限" name="data">
               <el-form label-width="100px" style="margin-top: 16px">
                 <el-form-item label="数据范围">
-                  <el-select
-                    v-model="selectedRole.dataScope"
-                    style="width: 240px"
-                  >
+                  <el-select v-model="selectedRole.dataScope" style="width: 240px">
                     <el-option label="全部数据" value="all" />
                     <el-option label="本部门数据" value="dept" />
                     <el-option label="仅本人数据" value="self" />
                   </el-select>
                 </el-form-item>
                 <el-form-item>
-                  <el-alert
-                    :title="dataScopeDesc"
-                    type="info"
-                    :closable="false"
-                    show-icon
-                  />
+                  <el-alert :title="dataScopeDesc" type="info" :closable="false" show-icon />
                 </el-form-item>
               </el-form>
             </el-tab-pane>
@@ -113,35 +66,16 @@
     </el-row>
 
     <!-- Role Dialog -->
-    <el-dialog
-      v-model="dialogVisible"
-      :title="isEdit ? '编辑角色' : '新增角色'"
-      width="480px"
-      destroy-on-close
-    >
-      <el-form
-        ref="formRef"
-        :model="form"
-        :rules="formRules"
-        label-width="80px"
-      >
+    <el-dialog v-model="dialogVisible" :title="isEdit ? '编辑角色' : '新增角色'" width="480px" destroy-on-close>
+      <el-form ref="formRef" :model="form" :rules="formRules" label-width="80px">
         <el-form-item label="角色名称" prop="name">
           <el-input v-model="form.name" placeholder="请输入角色名称" />
         </el-form-item>
         <el-form-item label="角色编码" prop="code">
-          <el-input
-            v-model="form.code"
-            placeholder="请输入角色编码"
-            :disabled="isEdit"
-          />
+          <el-input v-model="form.code" placeholder="请输入角色编码" :disabled="isEdit" />
         </el-form-item>
         <el-form-item label="描述">
-          <el-input
-            v-model="form.description"
-            type="textarea"
-            :rows="3"
-            placeholder="请输入描述"
-          />
+          <el-input v-model="form.description" type="textarea" :rows="3" placeholder="请输入描述" />
         </el-form-item>
         <el-form-item label="状态">
           <el-radio-group v-model="form.status">
@@ -152,9 +86,7 @@
       </el-form>
       <template #footer>
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" :loading="submitLoading" @click="handleSubmit"
-          >确定</el-button
-        >
+        <el-button type="primary" :loading="submitLoading" @click="handleSubmit">确定</el-button>
       </template>
     </el-dialog>
   </div>
@@ -165,13 +97,7 @@ import { ref, reactive, computed, onMounted } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import type { FormInstance, FormRules } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
-import {
-  getRoleList,
-  createRole,
-  updateRole,
-  deleteRole,
-  getMenuTree,
-} from "@/api";
+import { getRoleList, createRole, updateRole, deleteRole, getMenuTree } from "@/api";
 import type { RoleInfo, MenuNode } from "@/types";
 
 const loading = ref(false);

@@ -2,20 +2,9 @@
   <div class="tag-bar">
     <el-scrollbar class="tag-scroll">
       <div class="tag-list">
-        <div
-          v-for="tag in tagStore.tags"
-          :key="tag.name"
-          class="tag-item"
-          :class="{ active: tagStore.activeTag === tag.name }"
-          @click="handleClickTag(tag)"
-          @contextmenu.prevent
-        >
+        <div v-for="tag in tagStore.tags" :key="tag.name" class="tag-item" :class="{ active: tagStore.activeTag === tag.name }" @click="handleClickTag(tag)" @contextmenu.prevent>
           <span class="tag-title">{{ tag.title }}</span>
-          <el-icon
-            v-if="tag.closable"
-            class="tag-close"
-            @click.stop="handleCloseTag(tag)"
-          >
+          <el-icon v-if="tag.closable" class="tag-close" @click.stop="handleCloseTag(tag)">
             <Close />
           </el-icon>
         </div>
@@ -44,13 +33,7 @@
 import { useRoute, useRouter } from "vue-router";
 import { useTagStore } from "@/store";
 import type { TagItem } from "@/types";
-import {
-  Close,
-  ArrowDown,
-  Refresh,
-  CircleClose,
-  CircleCloseFilled,
-} from "@element-plus/icons-vue";
+import { Close, ArrowDown, Refresh, CircleClose, CircleCloseFilled } from "@element-plus/icons-vue";
 
 const router = useRouter();
 const route = useRoute();

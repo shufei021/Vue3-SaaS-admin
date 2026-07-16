@@ -83,30 +83,13 @@ import VChart from "vue-echarts";
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { LineChart, BarChart, PieChart, FunnelChart } from "echarts/charts";
-import {
-  TitleComponent,
-  TooltipComponent,
-  LegendComponent,
-  GridComponent,
-} from "echarts/components";
+import { TitleComponent, TooltipComponent, LegendComponent, GridComponent } from "echarts/components";
 import { getAnalyticsData } from "@/api";
 
-use([
-  CanvasRenderer,
-  LineChart,
-  BarChart,
-  PieChart,
-  FunnelChart,
-  TitleComponent,
-  TooltipComponent,
-  LegendComponent,
-  GridComponent,
-]);
+use([CanvasRenderer, LineChart, BarChart, PieChart, FunnelChart, TitleComponent, TooltipComponent, LegendComponent, GridComponent]);
 
 const data = ref<any>(null);
-const isDark = computed(() =>
-  document.documentElement.classList.contains("dark"),
-);
+const isDark = computed(() => document.documentElement.classList.contains("dark"));
 const textColor = computed(() => (isDark.value ? "#a3a6ad" : "#606266"));
 const axisLineColor = computed(() => (isDark.value ? "#4c4d4f" : "#dcdfe6"));
 const splitLineColor = computed(() => (isDark.value ? "#333" : "#f0f0f0"));
@@ -263,10 +246,7 @@ const responseTimeOption = computed(() => {
   return {
     tooltip: {
       trigger: "axis",
-      formatter: (params: any) =>
-        params
-          .map((p: any) => `${p.marker} ${p.seriesName}: ${p.value}ms`)
-          .join("<br/>"),
+      formatter: (params: any) => params.map((p: any) => `${p.marker} ${p.seriesName}: ${p.value}ms`).join("<br/>"),
     },
     legend: {
       data: ["平均响应", "P99"],

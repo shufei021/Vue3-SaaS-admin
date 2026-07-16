@@ -6,11 +6,7 @@
         <Expand v-else />
       </el-icon>
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item
-          v-for="item in breadcrumbs"
-          :key="item.path"
-          :to="item.path"
-        >
+        <el-breadcrumb-item v-for="item in breadcrumbs" :key="item.path" :to="item.path">
           {{ item.title }}
         </el-breadcrumb-item>
       </el-breadcrumb>
@@ -36,17 +32,8 @@
             >
               <div class="tenant-dropdown-item">
                 <span>{{ t.name }}</span>
-                <el-tag
-                  size="small"
-                  :type="t.status === 'active' ? 'success' : 'danger'"
-                >
-                  {{
-                    t.status === "active"
-                      ? "正常"
-                      : t.status === "suspended"
-                        ? "停用"
-                        : "过期"
-                  }}
+                <el-tag size="small" :type="t.status === 'active' ? 'success' : 'danger'">
+                  {{ t.status === "active" ? "正常" : t.status === "suspended" ? "停用" : "过期" }}
                 </el-tag>
               </div>
             </el-dropdown-item>
@@ -93,17 +80,7 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { useAppStore, useTenantStore } from "@/store";
-import {
-  Fold,
-  Expand,
-  OfficeBuilding,
-  ArrowDown,
-  Moon,
-  Sunny,
-  FullScreen,
-  User,
-  SwitchButton,
-} from "@element-plus/icons-vue";
+import { Fold, Expand, OfficeBuilding, ArrowDown, Moon, Sunny, FullScreen, User, SwitchButton } from "@element-plus/icons-vue";
 
 const route = useRoute();
 const appStore = useAppStore();

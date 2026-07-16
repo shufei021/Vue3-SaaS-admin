@@ -1,10 +1,7 @@
 <template>
   <div class="app-layout">
     <AppSidebar />
-    <div
-      class="main-area"
-      :class="{ 'sidebar-collapsed': appStore.sidebarCollapsed }"
-    >
+    <div class="main-area" :class="{ 'sidebar-collapsed': appStore.sidebarCollapsed }">
       <AppHeader />
       <AppTagBar />
       <div class="main-content">

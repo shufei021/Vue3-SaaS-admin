@@ -9,12 +9,7 @@ export default [
   },
   {
     name: "app/files-to-ignore",
-    ignores: [
-      "**/dist/**",
-      "**/node_modules/**",
-      "**/auto-imports.d.ts",
-      "**/components.d.ts",
-    ],
+    ignores: ["**/dist/**", "**/node_modules/**", "**/auto-imports.d.ts", "**/components.d.ts"],
   },
   ...pluginVue.configs["flat/recommended"],
   ...vueTsEslintConfig(),

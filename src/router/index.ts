@@ -101,6 +101,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/views/analytics/index.vue"),
         meta: { title: "数据看板", icon: "DataAnalysis", keepAlive: true },
       },
+      {
+        path: "table",
+        name: "Table",
+        component: () => import("@/views/table/index.vue"),
+        meta: { title: "表格组件", icon: "DocumentCopy", keepAlive: true },
+      },
     ],
   },
 ];

@@ -1,15 +1,7 @@
 // ============================================
 // Mock Data - All mock data for the application
 // ============================================
-import type {
-  UserInfo,
-  RoleInfo,
-  MenuNode,
-  TenantInfo,
-  AuditLog,
-  StatCard,
-  MonitorData,
-} from "@/types";
+import type { UserInfo, RoleInfo, MenuNode, TenantInfo, AuditLog, StatCard, MonitorData } from "@/types";
 
 // --- Users ---
 export const mockUsers: UserInfo[] = [
@@ -17,7 +9,7 @@ export const mockUsers: UserInfo[] = [
     id: 1,
     username: "admin",
     nickname: "系统管理员",
-    avatar: "",
+    avatar: "https://sale.kkb-net-dev.web.70mail.cn/resource/images/defaulttx.png",
     email: "admin@saas.com",
     phone: "13800000001",
     status: 1,
@@ -32,7 +24,8 @@ export const mockUsers: UserInfo[] = [
     id: 2,
     username: "zhangsan",
     nickname: "张三",
-    avatar: "",
+    avatar: "https://sale.kkb-net-dev.web.70mail.cn/resource/images/defaulttx.png",
+
     email: "zhangsan@saas.com",
     phone: "13800000002",
     status: 1,
@@ -47,7 +40,7 @@ export const mockUsers: UserInfo[] = [
     id: 3,
     username: "lisi",
     nickname: "李四",
-    avatar: "",
+    avatar: "https://sale.kkb-net-dev.web.70mail.cn/resource/images/defaulttx.png",
     email: "lisi@saas.com",
     phone: "13800000003",
     status: 1,
@@ -62,7 +55,7 @@ export const mockUsers: UserInfo[] = [
     id: 4,
     username: "wangwu",
     nickname: "王五",
-    avatar: "",
+    avatar: "https://sale.kkb-net-dev.web.70mail.cn/resource/images/defaulttx.png",
     email: "wangwu@saas.com",
     phone: "13800000004",
     status: 0,
@@ -494,32 +487,10 @@ export const mockTenants: TenantInfo[] = [
 
 // --- Audit Logs ---
 export const mockAuditLogs: AuditLog[] = Array.from({ length: 50 }, (_, i) => {
-  const modules = [
-    "用户管理",
-    "角色管理",
-    "租户管理",
-    "系统设置",
-    "数据看板",
-    "仪表盘",
-  ];
-  const actions = [
-    "新增",
-    "编辑",
-    "删除",
-    "查询",
-    "导出",
-    "导入",
-    "登录",
-    "登出",
-  ];
+  const modules = ["用户管理", "角色管理", "租户管理", "系统设置", "数据看板", "仪表盘"];
+  const actions = ["新增", "编辑", "删除", "查询", "导出", "导入", "登录", "登出"];
   const methods = ["POST", "PUT", "DELETE", "GET"];
-  const results: Array<"success" | "fail"> = [
-    "success",
-    "success",
-    "success",
-    "success",
-    "fail",
-  ];
+  const results: Array<"success" | "fail"> = ["success", "success", "success", "success", "fail"];
   const users = ["admin", "zhangsan", "lisi", "wangwu", "zhaoliu"];
   const r = results[i % results.length];
   return {
@@ -534,10 +505,7 @@ export const mockAuditLogs: AuditLog[] = Array.from({ length: 50 }, (_, i) => {
     result: r,
     ip: `192.168.1.${(i % 254) + 1}`,
     duration: Math.floor(Math.random() * 500) + 10,
-    createTime: new Date(Date.now() - i * 3600000 * 2)
-      .toISOString()
-      .replace("T", " ")
-      .slice(0, 19),
+    createTime: new Date(Date.now() - i * 3600000 * 2).toISOString().replace("T", " ").slice(0, 19),
   };
 });
 
@@ -589,24 +557,8 @@ export const mockMonitorData: MonitorData = {
 
 // --- Revenue Trend ---
 export const mockRevenueTrend = {
-  months: [
-    "1月",
-    "2月",
-    "3月",
-    "4月",
-    "5月",
-    "6月",
-    "7月",
-    "8月",
-    "9月",
-    "10月",
-    "11月",
-    "12月",
-  ],
-  revenue: [
-    120000, 132000, 141000, 135000, 158000, 165000, 172000, 168000, 180000,
-    175000, 182000, 186400,
-  ],
+  months: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+  revenue: [120000, 132000, 141000, 135000, 158000, 165000, 172000, 168000, 180000, 175000, 182000, 186400],
   orders: [320, 350, 380, 360, 420, 440, 460, 445, 480, 470, 488, 500],
 };
 
@@ -648,38 +600,14 @@ export const mockTodos = [
 // --- Analytics Data ---
 export const mockAnalyticsData = {
   userGrowth: {
-    months: [
-      "1月",
-      "2月",
-      "3月",
-      "4月",
-      "5月",
-      "6月",
-      "7月",
-      "8月",
-      "9月",
-      "10月",
-      "11月",
-      "12月",
-    ],
-    newUsers: [
-      1200, 1350, 1500, 1420, 1680, 1750, 1820, 1900, 2100, 2050, 2200, 2350,
-    ],
-    activeUsers: [
-      8500, 9200, 9800, 10200, 11000, 11800, 12500, 13200, 14000, 14800, 15600,
-      16200,
-    ],
+    months: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+    newUsers: [1200, 1350, 1500, 1420, 1680, 1750, 1820, 1900, 2100, 2050, 2200, 2350],
+    activeUsers: [8500, 9200, 9800, 10200, 11000, 11800, 12500, 13200, 14000, 14800, 15600, 16200],
   },
   apiCalls: {
     dates: Array.from({ length: 30 }, (_, i) => `${i + 1}日`),
-    success: Array.from(
-      { length: 30 },
-      () => Math.floor(Math.random() * 5000) + 8000,
-    ),
-    fail: Array.from(
-      { length: 30 },
-      () => Math.floor(Math.random() * 200) + 50,
-    ),
+    success: Array.from({ length: 30 }, () => Math.floor(Math.random() * 5000) + 8000),
+    fail: Array.from({ length: 30 }, () => Math.floor(Math.random() * 200) + 50),
   },
   moduleUsage: [
     { name: "用户管理", value: 35 },
@@ -691,10 +619,7 @@ export const mockAnalyticsData = {
   responseTime: {
     dates: Array.from({ length: 30 }, (_, i) => `${i + 1}日`),
     avg: Array.from({ length: 30 }, () => Math.floor(Math.random() * 100) + 80),
-    p99: Array.from(
-      { length: 30 },
-      () => Math.floor(Math.random() * 200) + 200,
-    ),
+    p99: Array.from({ length: 30 }, () => Math.floor(Math.random() * 200) + 200),
   },
   errorDistribution: [
     { name: "400 Bad Request", value: 120 },

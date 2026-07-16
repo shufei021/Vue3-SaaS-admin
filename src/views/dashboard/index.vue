@@ -2,13 +2,7 @@
   <div class="page-container dashboard-page">
     <!-- Stat Cards -->
     <el-row :gutter="16" class="stat-row">
-      <el-col
-        v-for="(stat, idx) in statCards"
-        :key="idx"
-        :xs="12"
-        :sm="12"
-        :md="6"
-      >
+      <el-col v-for="(stat, idx) in statCards" :key="idx" :xs="12" :sm="12" :md="6">
         <div class="stat-card">
           <div class="stat-icon" :style="{ background: stat.color }">
             <el-icon :size="26"><component :is="stat.icon" /></el-icon>
@@ -18,9 +12,7 @@
             <div class="stat-value">{{ stat.value }}</div>
             <div class="stat-footer">
               <span :class="`trend-${stat.trend}`">
-                {{
-                  stat.trend === "up" ? "↑" : stat.trend === "down" ? "↓" : "→"
-                }}
+                {{ stat.trend === "up" ? "↑" : stat.trend === "down" ? "↓" : "→" }}
               </span>
               {{ stat.footer }}
             </div>
@@ -64,36 +56,14 @@
         <div class="card-base todo-card">
           <div class="card-section-header">
             <span>待办事项</span>
-            <el-tag size="small" type="info"
-              >{{ todos.filter((t) => !t.done).length }} 待处理</el-tag
-            >
+            <el-tag size="small" type="info">{{ todos.filter((t) => !t.done).length }} 待处理</el-tag>
           </div>
           <div class="todo-list">
-            <div
-              v-for="todo in todos"
-              :key="todo.id"
-              class="todo-item"
-              :class="{ done: todo.done }"
-            >
+            <div v-for="todo in todos" :key="todo.id" class="todo-item" :class="{ done: todo.done }">
               <el-checkbox v-model="todo.done" />
               <span class="todo-title">{{ todo.title }}</span>
-              <el-tag
-                size="small"
-                :type="
-                  todo.priority === 'high'
-                    ? 'danger'
-                    : todo.priority === 'medium'
-                      ? 'warning'
-                      : 'info'
-                "
-              >
-                {{
-                  todo.priority === "high"
-                    ? "高"
-                    : todo.priority === "medium"
-                      ? "中"
-                      : "低"
-                }}
+              <el-tag size="small" :type="todo.priority === 'high' ? 'danger' : todo.priority === 'medium' ? 'warning' : 'info'">
+                {{ todo.priority === "high" ? "高" : todo.priority === "medium" ? "中" : "低" }}
               </el-tag>
             </div>
           </div>
@@ -105,42 +75,25 @@
         <div class="card-base monitor-card">
           <div class="card-section-header">
             <span>系统监控</span>
-            <span class="monitor-uptime"
-              >运行时间: {{ monitorData.uptime }}</span
-            >
+            <span class="monitor-uptime">运行时间: {{ monitorData.uptime }}</span>
           </div>
           <el-row :gutter="16">
             <el-col :span="8">
               <div class="monitor-item">
                 <div class="monitor-label">CPU 使用率</div>
-                <el-progress
-                  type="dashboard"
-                  :percentage="monitorData.cpu"
-                  :color="getProgressColor(monitorData.cpu)"
-                  :width="100"
-                />
+                <el-progress type="dashboard" :percentage="monitorData.cpu" :color="getProgressColor(monitorData.cpu)" :width="100" />
               </div>
             </el-col>
             <el-col :span="8">
               <div class="monitor-item">
                 <div class="monitor-label">内存使用率</div>
-                <el-progress
-                  type="dashboard"
-                  :percentage="monitorData.memory"
-                  :color="getProgressColor(monitorData.memory)"
-                  :width="100"
-                />
+                <el-progress type="dashboard" :percentage="monitorData.memory" :color="getProgressColor(monitorData.memory)" :width="100" />
               </div>
             </el-col>
             <el-col :span="8">
               <div class="monitor-item">
                 <div class="monitor-label">磁盘使用率</div>
-                <el-progress
-                  type="dashboard"
-                  :percentage="monitorData.disk"
-                  :color="getProgressColor(monitorData.disk)"
-                  :width="100"
-                />
+                <el-progress type="dashboard" :percentage="monitorData.disk" :color="getProgressColor(monitorData.disk)" :width="100" />
               </div>
             </el-col>
           </el-row>
@@ -148,25 +101,19 @@
             <el-col :span="8">
               <div class="monitor-stat">
                 <span class="stat-label">网络上传</span>
-                <span class="stat-val"
-                  >{{ monitorData.network.upload }} MB/s</span
-                >
+                <span class="stat-val">{{ monitorData.network.upload }} MB/s</span>
               </div>
             </el-col>
             <el-col :span="8">
               <div class="monitor-stat">
                 <span class="stat-label">网络下载</span>
-                <span class="stat-val"
-                  >{{ monitorData.network.download }} MB/s</span
-                >
+                <span class="stat-val">{{ monitorData.network.download }} MB/s</span>
               </div>
             </el-col>
             <el-col :span="8">
               <div class="monitor-stat">
                 <span class="stat-label">总请求数</span>
-                <span class="stat-val">{{
-                  formatNumber(monitorData.requests)
-                }}</span>
+                <span class="stat-val">{{ formatNumber(monitorData.requests) }}</span>
               </div>
             </el-col>
           </el-row>
@@ -182,31 +129,12 @@ import VChart from "vue-echarts";
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { LineChart, PieChart } from "echarts/charts";
-import {
-  TitleComponent,
-  TooltipComponent,
-  LegendComponent,
-  GridComponent,
-} from "echarts/components";
-import {
-  getDashboardStats,
-  getMonitorData,
-  getRevenueTrend,
-  getTenantDistribution,
-  getTodos,
-} from "@/api";
+import { TitleComponent, TooltipComponent, LegendComponent, GridComponent } from "echarts/components";
+import { getDashboardStats, getMonitorData, getRevenueTrend, getTenantDistribution, getTodos } from "@/api";
 import { formatNumber } from "@/utils";
 import type { StatCard, MonitorData } from "@/types";
 
-use([
-  CanvasRenderer,
-  LineChart,
-  PieChart,
-  TitleComponent,
-  TooltipComponent,
-  LegendComponent,
-  GridComponent,
-]);
+use([CanvasRenderer, LineChart, PieChart, TitleComponent, TooltipComponent, LegendComponent, GridComponent]);
 
 const statCards = ref<StatCard[]>([]);
 const monitorData = ref<MonitorData>({
@@ -233,9 +161,7 @@ const todos = ref<
   }[]
 >([]);
 
-const isDark = computed(() =>
-  document.documentElement.classList.contains("dark"),
-);
+const isDark = computed(() => document.documentElement.classList.contains("dark"));
 const textColor = computed(() => (isDark.value ? "#a3a6ad" : "#606266"));
 
 const revenueOption = computed(() => ({
@@ -331,14 +257,7 @@ function getProgressColor(val: number) {
 }
 
 onMounted(async () => {
-  const [statsRes, monitorRes, revenueRes, tenantRes, todosRes] =
-    await Promise.all([
-      getDashboardStats(),
-      getMonitorData(),
-      getRevenueTrend(),
-      getTenantDistribution(),
-      getTodos(),
-    ]);
+  const [statsRes, monitorRes, revenueRes, tenantRes, todosRes] = await Promise.all([getDashboardStats(), getMonitorData(), getRevenueTrend(), getTenantDistribution(), getTodos()]);
   statCards.value = statsRes.data;
   monitorData.value = monitorRes.data;
   revenueData.value = revenueRes.data;

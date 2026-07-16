@@ -34,8 +34,7 @@ request.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    const message =
-      error.response?.data?.message || error.message || "网络错误";
+    const message = error.response?.data?.message || error.message || "网络错误";
     ElMessage.error(message);
     return Promise.reject(error);
   },

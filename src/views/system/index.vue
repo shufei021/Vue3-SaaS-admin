@@ -4,11 +4,7 @@
       <el-tabs v-model="activeTab" type="border-card">
         <!-- Basic Config -->
         <el-tab-pane label="基础配置" name="basic">
-          <el-form
-            :model="basicForm"
-            label-width="140px"
-            style="max-width: 600px; margin-top: 16px"
-          >
+          <el-form :model="basicForm" label-width="140px" style="max-width: 600px; margin-top: 16px">
             <el-form-item label="系统名称">
               <el-input v-model="basicForm.siteName" />
             </el-form-item>
@@ -26,25 +22,15 @@
             </el-form-item>
             <el-form-item label="时区">
               <el-select v-model="basicForm.timezone" style="width: 100%">
-                <el-option
-                  label="Asia/Shanghai (UTC+8)"
-                  value="Asia/Shanghai"
-                />
+                <el-option label="Asia/Shanghai (UTC+8)" value="Asia/Shanghai" />
                 <el-option label="UTC" value="UTC" />
               </el-select>
             </el-form-item>
             <el-form-item label="每页默认条数">
-              <el-input-number
-                v-model="basicForm.pageSize"
-                :min="10"
-                :max="100"
-                :step="10"
-              />
+              <el-input-number v-model="basicForm.pageSize" :min="10" :max="100" :step="10" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="handleSave('basic')"
-                >保存配置</el-button
-              >
+              <el-button type="primary" @click="handleSave('basic')">保存配置</el-button>
               <el-button @click="handleReset('basic')">重置</el-button>
             </el-form-item>
           </el-form>
@@ -52,32 +38,18 @@
 
         <!-- Notification Settings -->
         <el-tab-pane label="通知设置" name="notification">
-          <el-form
-            :model="notifyForm"
-            label-width="140px"
-            style="max-width: 600px; margin-top: 16px"
-          >
+          <el-form :model="notifyForm" label-width="140px" style="max-width: 600px; margin-top: 16px">
             <el-form-item label="邮件通知">
               <el-switch v-model="notifyForm.emailEnabled" />
             </el-form-item>
             <el-form-item label="SMTP 服务器">
-              <el-input
-                v-model="notifyForm.smtpHost"
-                placeholder="smtp.example.com"
-              />
+              <el-input v-model="notifyForm.smtpHost" placeholder="smtp.example.com" />
             </el-form-item>
             <el-form-item label="SMTP 端口">
-              <el-input-number
-                v-model="notifyForm.smtpPort"
-                :min="1"
-                :max="65535"
-              />
+              <el-input-number v-model="notifyForm.smtpPort" :min="1" :max="65535" />
             </el-form-item>
             <el-form-item label="发件人邮箱">
-              <el-input
-                v-model="notifyForm.fromEmail"
-                placeholder="noreply@example.com"
-              />
+              <el-input v-model="notifyForm.fromEmail" placeholder="noreply@example.com" />
             </el-form-item>
             <el-form-item label="短信通知">
               <el-switch v-model="notifyForm.smsEnabled" />
@@ -92,9 +64,7 @@
               <el-switch v-model="notifyForm.alertEnabled" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="handleSave('notification')"
-                >保存配置</el-button
-              >
+              <el-button type="primary" @click="handleSave('notification')">保存配置</el-button>
               <el-button @click="handleTestNotify">发送测试通知</el-button>
             </el-form-item>
           </el-form>
@@ -102,17 +72,9 @@
 
         <!-- Security Settings -->
         <el-tab-pane label="安全策略" name="security">
-          <el-form
-            :model="securityForm"
-            label-width="160px"
-            style="max-width: 600px; margin-top: 16px"
-          >
+          <el-form :model="securityForm" label-width="160px" style="max-width: 600px; margin-top: 16px">
             <el-form-item label="密码最小长度">
-              <el-input-number
-                v-model="securityForm.minPasswordLength"
-                :min="6"
-                :max="32"
-              />
+              <el-input-number v-model="securityForm.minPasswordLength" :min="6" :max="32" />
             </el-form-item>
             <el-form-item label="密码复杂度要求">
               <el-checkbox-group v-model="securityForm.passwordRules">
@@ -123,27 +85,13 @@
               </el-checkbox-group>
             </el-form-item>
             <el-form-item label="登录失败锁定次数">
-              <el-input-number
-                v-model="securityForm.maxLoginAttempts"
-                :min="3"
-                :max="10"
-              />
+              <el-input-number v-model="securityForm.maxLoginAttempts" :min="3" :max="10" />
             </el-form-item>
             <el-form-item label="锁定时长(分钟)">
-              <el-input-number
-                v-model="securityForm.lockDuration"
-                :min="5"
-                :max="120"
-                :step="5"
-              />
+              <el-input-number v-model="securityForm.lockDuration" :min="5" :max="120" :step="5" />
             </el-form-item>
             <el-form-item label="会话超时(分钟)">
-              <el-input-number
-                v-model="securityForm.sessionTimeout"
-                :min="15"
-                :max="480"
-                :step="15"
-              />
+              <el-input-number v-model="securityForm.sessionTimeout" :min="15" :max="480" :step="15" />
             </el-form-item>
             <el-form-item label="强制双因素认证">
               <el-switch v-model="securityForm.force2FA" />
@@ -152,9 +100,7 @@
               <el-switch v-model="securityForm.ipWhitelist" />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="handleSave('security')"
-                >保存配置</el-button
-              >
+              <el-button type="primary" @click="handleSave('security')">保存配置</el-button>
               <el-button @click="handleReset('security')">重置</el-button>
             </el-form-item>
           </el-form>

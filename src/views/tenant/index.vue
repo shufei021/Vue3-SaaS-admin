@@ -4,21 +4,10 @@
     <div class="filter-bar">
       <el-form :inline="true" :model="query">
         <el-form-item label="关键词">
-          <el-input
-            v-model="query.keyword"
-            placeholder="租户名称/编码/联系人"
-            clearable
-            style="width: 220px"
-            @keyup.enter="handleSearch"
-          />
+          <el-input v-model="query.keyword" placeholder="租户名称/编码/联系人" clearable style="width: 220px" @keyup.enter="handleSearch" />
         </el-form-item>
         <el-form-item label="状态">
-          <el-select
-            v-model="query.status"
-            placeholder="全部"
-            clearable
-            style="width: 120px"
-          >
+          <el-select v-model="query.status" placeholder="全部" clearable style="width: 120px">
             <el-option label="正常" value="active" />
             <el-option label="停用" value="suspended" />
             <el-option label="过期" value="expired" />
@@ -37,27 +26,14 @@
 
     <!-- Tenant Cards -->
     <el-row :gutter="16">
-      <el-col
-        v-for="tenant in tenants"
-        :key="tenant.id"
-        :xs="24"
-        :sm="12"
-        :lg="8"
-      >
+      <el-col v-for="tenant in tenants" :key="tenant.id" :xs="24" :sm="12" :lg="8">
         <div class="card-base tenant-card">
           <div class="tenant-header">
             <div class="tenant-name-row">
               <span class="tenant-name">{{ tenant.name }}</span>
-              <el-tag :type="statusType(tenant.status)" size="small">{{
-                statusLabel(tenant.status)
-              }}</el-tag>
+              <el-tag :type="statusType(tenant.status)" size="small">{{ statusLabel(tenant.status) }}</el-tag>
             </div>
-            <el-tag
-              :color="planColor(tenant.plan)"
-              size="small"
-              effect="dark"
-              style="border: none; color: #fff"
-            >
+            <el-tag :color="planColor(tenant.plan)" size="small" effect="dark" style="border: none; color: #fff">
               {{ planLabel(tenant.plan) }}
             </el-tag>
           </div>
@@ -77,9 +53,7 @@
             </div>
             <div class="info-row">
               <span class="info-label">到期时间</span>
-              <span class="info-value">{{
-                tenant.expireTime.slice(0, 10)
-              }}</span>
+              <span class="info-value">{{ tenant.expireTime.slice(0, 10) }}</span>
             </div>
           </div>
 
@@ -88,44 +62,23 @@
             <div class="usage-item">
               <div class="usage-label">
                 <span>用户数</span>
-                <span class="usage-text"
-                  >{{ tenant.currentUsers }} / {{ tenant.maxUsers }}</span
-                >
+                <span class="usage-text">{{ tenant.currentUsers }} / {{ tenant.maxUsers }}</span>
               </div>
-              <el-progress
-                :percentage="
-                  Math.round((tenant.currentUsers / tenant.maxUsers) * 100)
-                "
-                :stroke-width="8"
-              />
+              <el-progress :percentage="Math.round((tenant.currentUsers / tenant.maxUsers) * 100)" :stroke-width="8" />
             </div>
             <div class="usage-item">
               <div class="usage-label">
                 <span>存储用量</span>
-                <span class="usage-text"
-                  >{{ tenant.storageUsed }} / {{ tenant.storageLimit }} GB</span
-                >
+                <span class="usage-text">{{ tenant.storageUsed }} / {{ tenant.storageLimit }} GB</span>
               </div>
-              <el-progress
-                :percentage="
-                  Math.round((tenant.storageUsed / tenant.storageLimit) * 100)
-                "
-                :stroke-width="8"
-                :color="storageColor(tenant)"
-              />
+              <el-progress :percentage="Math.round((tenant.storageUsed / tenant.storageLimit) * 100)" :stroke-width="8" :color="storageColor(tenant)" />
             </div>
           </div>
 
           <!-- Actions -->
           <div class="tenant-actions">
-            <el-button size="small" @click="handleDetail(tenant)"
-              >详情</el-button
-            >
-            <el-button
-              size="small"
-              :type="tenant.status === 'active' ? 'danger' : 'success'"
-              @click="handleToggleStatus(tenant)"
-            >
+            <el-button size="small" @click="handleDetail(tenant)">详情</el-button>
+            <el-button size="small" :type="tenant.status === 'active' ? 'danger' : 'success'" @click="handleToggleStatus(tenant)">
               {{ tenant.status === "active" ? "停用" : "启用" }}
             </el-button>
           </div>
@@ -135,55 +88,25 @@
 
     <!-- Pagination -->
     <div v-if="total > query.pageSize" class="pagination-wrapper">
-      <el-pagination
-        v-model:current-page="query.page"
-        v-model:page-size="query.pageSize"
-        :total="total"
-        layout="total, prev, pager, next"
-        @current-change="loadData"
-      />
+      <el-pagination v-model:current-page="query.page" v-model:page-size="query.pageSize" :total="total" layout="total, prev, pager, next" @current-change="loadData" />
     </div>
 
     <!-- Detail Dialog -->
     <el-dialog v-model="detailVisible" title="租户详情" width="560px">
       <el-descriptions v-if="currentTenant" :column="2" border>
-        <el-descriptions-item label="租户名称">{{
-          currentTenant.name
-        }}</el-descriptions-item>
-        <el-descriptions-item label="租户编码">{{
-          currentTenant.code
-        }}</el-descriptions-item>
-        <el-descriptions-item label="套餐">{{
-          planLabel(currentTenant.plan)
-        }}</el-descriptions-item>
+        <el-descriptions-item label="租户名称">{{ currentTenant.name }}</el-descriptions-item>
+        <el-descriptions-item label="租户编码">{{ currentTenant.code }}</el-descriptions-item>
+        <el-descriptions-item label="套餐">{{ planLabel(currentTenant.plan) }}</el-descriptions-item>
         <el-descriptions-item label="状态">
-          <el-tag :type="statusType(currentTenant.status)" size="small">{{
-            statusLabel(currentTenant.status)
-          }}</el-tag>
+          <el-tag :type="statusType(currentTenant.status)" size="small">{{ statusLabel(currentTenant.status) }}</el-tag>
         </el-descriptions-item>
-        <el-descriptions-item label="联系人">{{
-          currentTenant.contactName
-        }}</el-descriptions-item>
-        <el-descriptions-item label="联系电话">{{
-          currentTenant.contactPhone
-        }}</el-descriptions-item>
-        <el-descriptions-item label="联系邮箱">{{
-          currentTenant.contactEmail
-        }}</el-descriptions-item>
-        <el-descriptions-item label="创建时间">{{
-          currentTenant.createTime
-        }}</el-descriptions-item>
-        <el-descriptions-item label="用户数"
-          >{{ currentTenant.currentUsers }} /
-          {{ currentTenant.maxUsers }}</el-descriptions-item
-        >
-        <el-descriptions-item label="存储用量"
-          >{{ currentTenant.storageUsed }} /
-          {{ currentTenant.storageLimit }} GB</el-descriptions-item
-        >
-        <el-descriptions-item label="到期时间" :span="2">{{
-          currentTenant.expireTime
-        }}</el-descriptions-item>
+        <el-descriptions-item label="联系人">{{ currentTenant.contactName }}</el-descriptions-item>
+        <el-descriptions-item label="联系电话">{{ currentTenant.contactPhone }}</el-descriptions-item>
+        <el-descriptions-item label="联系邮箱">{{ currentTenant.contactEmail }}</el-descriptions-item>
+        <el-descriptions-item label="创建时间">{{ currentTenant.createTime }}</el-descriptions-item>
+        <el-descriptions-item label="用户数">{{ currentTenant.currentUsers }} / {{ currentTenant.maxUsers }}</el-descriptions-item>
+        <el-descriptions-item label="存储用量">{{ currentTenant.storageUsed }} / {{ currentTenant.storageLimit }} GB</el-descriptions-item>
+        <el-descriptions-item label="到期时间" :span="2">{{ currentTenant.expireTime }}</el-descriptions-item>
       </el-descriptions>
     </el-dialog>
   </div>
@@ -210,11 +133,7 @@ const query = reactive({
 });
 
 function statusType(status: string) {
-  return status === "active"
-    ? "success"
-    : status === "suspended"
-      ? "danger"
-      : "warning";
+  return status === "active" ? "success" : status === "suspended" ? "danger" : "warning";
 }
 
 function statusLabel(status: string) {

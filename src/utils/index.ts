@@ -5,10 +5,7 @@
 /**
  * Format date string
  */
-export function formatDate(
-  date: string | Date,
-  fmt = "YYYY-MM-DD HH:mm:ss",
-): string {
+export function formatDate(date: string | Date, fmt = "YYYY-MM-DD HH:mm:ss"): string {
   const d = typeof date === "string" ? new Date(date) : date;
   const map: Record<string, number> = {
     YYYY: d.getFullYear(),
@@ -51,10 +48,7 @@ export function generateId(): number {
 /**
  * Debounce function
  */
-export function debounce<T extends (...args: any[]) => any>(
-  fn: T,
-  delay = 300,
-): T {
+export function debounce<T extends (...args: any[]) => any>(fn: T, delay = 300): T {
   let timer: ReturnType<typeof setTimeout> | null = null;
   return ((...args: any[]) => {
     if (timer) clearTimeout(timer);
@@ -72,9 +66,7 @@ export function deepClone<T>(obj: T): T {
 /**
  * Get status type for Element Plus tag
  */
-export function getStatusType(
-  status: string | number,
-): "" | "success" | "warning" | "danger" | "info" {
+export function getStatusType(status: string | number): "" | "success" | "warning" | "danger" | "info" {
   const map: Record<string, "" | "success" | "warning" | "danger" | "info"> = {
     active: "success",
     suspended: "danger",
